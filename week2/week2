@@ -1,0 +1,44 @@
+''' problem 1
+from functools import reduce
+
+numbers = open('input0.txt', 'r').readlines()
+
+numbers = map(int, map(str.strip, numbers))
+non_negative_numbers = filter(lambda x: x >= 0, numbers)
+squares = map(lambda x: x ** 2, non_negative_numbers)
+total_sum = reduce(lambda x, y: x + y, squares)
+print(total_sum)
+'''
+#problem2
+from functools import reduce
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+def sum_of_primes(file_path):
+    with open(file_path, 'r') as file:
+        numbers = file.readlines()
+    
+    numbers = map(int, map(str.strip, numbers))
+    prime_numbers = filter(is_prime, numbers)
+    total_sum = reduce(lambda x, y: x + y, prime_numbers, 0)
+    
+    return total_sum
+
+if __name__ == "__main__":
+    file_path = 'input3.txt'
+    result = sum_of_primes(file_path)
+    print(f"The sum of all prime numbers is: {result}")
+
+    
